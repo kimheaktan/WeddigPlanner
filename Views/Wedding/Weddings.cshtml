@@ -1,0 +1,107 @@
+@* @model  *@
+
+@{
+    ViewData["Title"] = "Welcome";
+    <link rel="stylesheet" href="~/css/Weddings.css">
+
+}
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container"> 
+
+  <h2 class="col-auto mr-auto"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/5kz8465R1Ag.png" alt=""> Dashboard</a></h2>
+<h2 class="text-center ">Welcome, @Model.LoggedInUser.FirstName!</h2>
+
+  <div class="col-auto"> <a  asp-action="Logout" asp-controller="Home" ><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/3yLx6d_XuYE.png" width="28px" alt="logo" class="LogoColor text-muted"></a> </div>
+</nav>
+
+<div class="container">
+  <div class="card border-0 shadow my-5">
+    <div class="card-body p-5">
+
+<h1 class="text-center ">All Weddings</h1>
+
+<div>
+
+<table class="table table-striped">
+    <thead>
+        <tr>
+            <th scope="col" class="text-center">Wedding</th>
+            <th scope="col" class="text-center">Date</th>
+            <th scope="col" class="text-center">Attendees</th>
+            <th scope="col" class="text-center">Action</th>
+        </tr>
+    </thead>
+    <tbody>
+        
+    @foreach (var w in Model.ExistingWeddings)
+    {
+        <tr>
+        <td><a asp-action="ViewWedding" asp-controller="Wedding" asp-route-WedId="@w.WeddingId">@w.Wedders()</a></td>
+        <td class="text-center">@w.Date.ToString("MMM-dd-yyy")</td>
+        @* <td> @w.Date.ToString("r")</td> *@
+        <td class="text-center">
+            @w.Attendees.Count
+        </td>
+        @if(@w.CreatorId == @Model.LoggedInUser.UserId)
+        {
+            // alternative route
+            @* <td>
+                <a href="/wed/@w.WeddingId" value="@w.WeddingId">Delete</a>
+            </td> *@
+            <td class="text-center"> 
+                <a asp-action="Delete" asp-controller="Wedding" asp-route-WedId="@w.WeddingId">Delete</a>
+            </td>
+        }
+        else 
+        {
+            bool isRsvp = false;
+            @foreach (Wedding wedding in Model.ExistingWeddings)
+            {
+                @foreach (RSVP rsvp in wedding.Attendees)
+                {
+                    @if(rsvp.User.UserId == Model.LoggedInUser.UserId && wedding.WeddingId == w.WeddingId)
+                    {
+                        isRsvp = true;
+                    }
+                }                
+            }
+            @if(isRsvp == true)
+            {
+                <td class="text-center">
+                    <a asp-action="UnRSVP" asp-controller="Wedding" asp-route-WedId="@w.WeddingId" >UnRSVP</a>
+                </td>
+            }  
+            else
+            {
+                <td class="text-center">
+                    <a asp-action="RSVP" asp-controller="Wedding" asp-route-WedId="@w.WeddingId">RSVP</a>
+                </td> 
+            }       
+        }
+        </tr>
+    }
+
+    </tbody>
+</table>
+</div>
+
+<div class="text-right">
+    <a asp-action="NewWeddingForm" asp-controller="Wedding" class="btn btn-info" type="submit"> + New Wedding</a>
+
+</div>
+@* </body> *@
+
+
+      <div style="height: 700px"></div>
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+
+
+

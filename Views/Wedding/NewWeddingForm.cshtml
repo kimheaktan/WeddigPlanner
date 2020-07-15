@@ -1,0 +1,57 @@
+@model Wedding
+@{
+    ViewData["Title"] = "New Wedding";
+    <link rel="stylesheet" href="~/css/New.css">
+}
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container"> 
+
+  <h2 class="col-auto mr-auto"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/5kz8465R1Ag.png" alt=""> Dashboard</a></h2>
+
+  <div class="col-auto"> <a  asp-action="Logout" asp-controller="Home" ><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/3yLx6d_XuYE.png" width="28px" alt="logo" class="LogoColor text-muted"></a> </div>
+</nav>
+
+
+<div class="container">
+  <div class="card border-0 shadow my-5">
+    <div class="card-body p-5">
+<h3 class="text-center font-family">Plan A Wedding</h3>
+
+
+<form asp-action="CreateWedding" asp-controller="Wedding" class="group-form col-xs-9" >
+
+    <label asp-for="WedderOne"></label>
+    <span asp-validation-for="WedderOne" class="text-success"></span>
+    <input  asp-for="WedderOne" type="text" class="form-control">
+
+    <label asp-for="WedderTwo"></label>
+    <span asp-validation-for="WedderTwo" class="text-success"></span>
+    <input asp-for="WedderTwo" type="text" class="form-control">
+
+    <label asp-for="Date"></label>
+    <span asp-validation-for="Date" class="text-success"></span>
+    <input asp-for="Date" type="datetime-local" class="form-control">
+
+    <label asp-for="Street"></label>
+    <span asp-validation-for="Street" class="text-success"></span>
+    <input asp-for="Street" type="text" class="form-control">
+    
+    <label asp-for="City"></label>
+    <span asp-validation-for="City" class="text-success"></span>
+    <input asp-for="City" type="text" class="form-control">
+
+    <label asp-for="State"></label>
+    <span asp-validation-for="State" class="text-success"></span>
+    <input asp-for="State" type="text" class="form-control">
+
+    <label asp-for="Zip"></label>
+    <span asp-validation-for="Zip" class="text-success"></span>
+    <input asp-for="Zip" type="text" class="form-control">
+    @* //loading and sending info form View form will throw an error when the ModelState in not valid and need to View the form again to show the error messages, it'll view the form and it won't have any data to load on cuz we didn't RedirectToAction *@
+
+    @* <input asp-for="CreatorId" value="@ViewBag.loggedInUserId" type="hidden" class="form-control"> *@
+
+    <input type="submit" class="btn btn-success" value="Create Wedding">
+</form>
+  </div>
+</div>

@@ -1,0 +1,50 @@
+@* @model Wedding *@
+
+@{
+    ViewData["Title"] = "Details";
+    <link rel="stylesheet" href="~/css/Weddings.css">
+
+}
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container"> 
+
+  <h2 class="col-auto mr-auto"><a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index"> <img src="https://static.xx.fbcdn.net/rsrc.php/v3/yG/r/5kz8465R1Ag.png" alt=""> Dashboard</a></h2>
+
+  <div class="col-auto"> <a  asp-action="Logout" asp-controller="Home" ><img src="https://static.xx.fbcdn.net/rsrc.php/v3/yr/r/3yLx6d_XuYE.png" width="28px" alt="logo" class="LogoColor text-muted"></a> </div>
+</nav>
+
+<div class="container">
+  <div class="card border-0 shadow my-5">
+    <div class="card-body p-5">
+
+<h1 class="Text-center">@Model.Wedders()</h1>
+
+<p>Wedding's date: @Model.Date.ToString("MMM-dd-yyyy") at @Model.Date.ToString("t")</p>
+<p>Address: @Model.Address()</p>
+
+<div>Attendees: @Model.Attendees.Count
+
+    @foreach (var user in Model.Attendees)
+    {
+        if(@user.User.UserId == @Model.CreatorId)
+        {
+            <p style="margin-left:3%">@user.User.FullName() (Coordinator)</p>
+        }
+        else
+        {
+            <p style="margin-left:3%">@user.User.FullName() (Guests)</p>
+        }
+    }
+</div>
+
+<div class="text-center" style="margin-left:4.5%">
+<div class="col-9">
+        <iframe width="900" height="350"   
+        src="https://www.google.com/maps/embed/v1/place?key=AIzaSyBcbGOQQ4Zk3sFgmqmGCEA-H_r7tnlglwk&q=@Model.Street+@Model.City+@Model.State+@Model.Zip" 
+        allowfullscreen></iframe>
+      </div>
+</div>
+
+</div>
+  </div>
+</div>
