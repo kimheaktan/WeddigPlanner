@@ -1,4 +1,4 @@
-# WeddigPlanner
+# Weddig Planner
 
 • Built with: C# | ASP .Net Core MVC | Entity Framework Core | MySQL Database | LINQ | Password Bcrypt Encryption | Bootstrap | Google Maps API | HTML | CSS 
 
